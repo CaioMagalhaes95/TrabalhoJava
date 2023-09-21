@@ -13,42 +13,40 @@ import com.example.aula3.models.CategoriaProduto;
 import com.example.aula3.models.Curso;
 import com.example.aula3.models.Produto;
 import com.example.aula3.repository.CategoriaCursoRepository;
-import com.example.aula3.repository.CategoriaProdutoRepository;
 import com.example.aula3.repository.CursoRepository;
-import com.example.aula3.repository.ProdutoRepository;
 
 @SpringBootApplication
 public class Aula3Application {
 
 	@Bean
-	public CommandLineRunner init(@Autowired ProdutoRepository produtoRepository, 
-	@Autowired CategoriaProdutoRepository categoriaProdutoRepository) {
+	public CommandLineRunner init(@Autowired CursoRepository cursoRepository, 
+	@Autowired CategoriaCursoRepository categoriaCursoRepository) {
 		return args -> {
-			produtoRepository.inserir(
-					new Produto((long) 0, "prod1", 2000));
+			cursoRepository.save(
+					new Curso((long) 0, "teste1", 2000));
 
 					
-			produtoRepository.inserir(
-					new Produto((long) 0, "prod2", 2000));
+			cursoRepository.save(
+					new Curso((long) 0, "teste2", 2050));
 
 
-			List<Produto> listaProdutos = produtoRepository.obterTodos();
-			listaProdutos.forEach(System.out::println);
+			List<Curso> listaCursos = cursoRepository.findAll();
+			listaCursos.forEach(System.out::println);
 
-			System.out.println("Exemplo obter por nome");
-			listaProdutos = produtoRepository.obterPorNome("2");
-			listaProdutos.forEach(System.out::println);
+			System.out.println("** Exemplo obter por nome **");
+			listaCursos = cursoRepository.findByNomeLike("%2");
+			listaCursos.forEach(System.out::println);
 
-			System.out.println("Inserir Categoria");
-			CategoriaProduto c1 = new CategoriaProduto((long) 0 , "Nivel 1", "Primeiro");
-			categoriaProdutoRepository.inserir(c1);
+			// System.out.println("Inserir Categoria");
+			// CategoriaProduto c1 = new CategoriaProduto((long) 0 , "Nivel 1", "Primeiro");
+			// categoriacursoRepository.inserir(c1);
 
-			System.out.println("Exemplo Atualiza");
-			listaProdutos.get(0).setCategoriaProduto(c1);
-			produtoRepository.inserir(listaProdutos.get(0));
+			// System.out.println("Exemplo Atualiza");
+			// listaProdutos.get(0).setCategoriaProduto(c1);
+			// cursoRepository.inserir(listaProdutos.get(0));
 
-			System.out.println("Exemplo Delete");
-			produtoRepository.excluirPorId(1);
+			// System.out.println("Exemplo Delete");
+			// cursoRepository.excluirPorId(1);
 
 
 		};
