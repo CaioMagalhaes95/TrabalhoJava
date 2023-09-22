@@ -41,6 +41,7 @@ public class Aula3Application {
 			categoriaProdutoRepository.inserir(c1);
 
 			System.out.println("Exemplo Atualiza");
+			c1 = categoriaProdutoRepository.obterTodos().get(0);
 			listaProdutos.get(0).setCategoriaProduto(c1);
 			produtoRepository.inserir(listaProdutos.get(0));
 
