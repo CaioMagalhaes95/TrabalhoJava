@@ -8,13 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.aula3.models.CategoriaCurso;
 import com.example.aula3.models.CategoriaProduto;
-import com.example.aula3.models.Curso;
 import com.example.aula3.models.Produto;
-import com.example.aula3.repository.CategoriaCursoRepository;
 import com.example.aula3.repository.CategoriaProdutoRepository;
-import com.example.aula3.repository.CursoRepository;
+import com.example.aula3.repository.CategoriaRepository;
 import com.example.aula3.repository.ProdutoRepository;
 
 @SpringBootApplication
@@ -22,34 +19,43 @@ public class Aula3Application {
 
 	@Bean
 	public CommandLineRunner init(@Autowired ProdutoRepository produtoRepository, 
-	@Autowired CategoriaProdutoRepository categoriaProdutoRepository) {
+	@Autowired CategoriaRepository categoriaRepository) {
 		return args -> {
-			produtoRepository.inserir(
+			produtoRepository.save(
 					new Produto((long) 0, "prod1", 2000));
 
 					
-			produtoRepository.inserir(
+			produtoRepository.save(
 					new Produto((long) 0, "prod2", 2000));
 
 
-			List<Produto> listaProdutos = produtoRepository.obterTodos();
+			List<Produto> listaProdutos = produtoRepository.findAll();
 			listaProdutos.forEach(System.out::println);
 
 			System.out.println("Exemplo obter por nome");
-			listaProdutos = produtoRepository.obterPorNome("2");
+			listaProdutos = produtoRepository.findByProd_nome("%2");
 			listaProdutos.forEach(System.out::println);
 
 			System.out.println("Inserir Categoria");
 			CategoriaProduto c1 = new CategoriaProduto((long) 0 , "Nivel 1", "Primeiro");
-			categoriaProdutoRepository.inserir(c1);
+			categoriaRepository.save(c1);
 
 			System.out.println("Exemplo Atualiza");
 			listaProdutos.get(0).setCategoriaProduto(c1);
-			produtoRepository.inserir(listaProdutos.get(0));
+			produtoRepository.save(listaProdutos.get(0));
 
-			System.out.println("Exemplo Delete");
-			produtoRepository.excluirPorId(1);
+			// System.out.println("Exemplo Delete");
+			// produtoRepository.delete(2);
 
+
+
+		List<CategoriaProduto> categs = categoriaRepository.findAll();
+		for(CategoriaProduto ca: categs){
+			System.out.println(ca.getId() + " - " + ca.getCat_nome());
+		}
+
+		CategoriaProduto pp = categoriaRepository.findCategoriaProdutoFetchProduto((long) 1);
+		System.out.println(pp.getCat_nome());
 
 		};
 	}
