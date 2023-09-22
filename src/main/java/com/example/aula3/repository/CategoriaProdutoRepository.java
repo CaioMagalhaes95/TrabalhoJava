@@ -20,7 +20,7 @@ public class CategoriaProdutoRepository {
 
     @Transactional
     public CategoriaProduto inserir(CategoriaProduto categoriaProduto){
-        entityManager.persist(categoriaProduto);
+        entityManager.merge(categoriaProduto);
         return categoriaProduto;
     }
 

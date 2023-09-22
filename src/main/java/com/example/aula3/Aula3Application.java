@@ -8,20 +8,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.aula3.models.CategoriaCurso;
 import com.example.aula3.models.CategoriaProduto;
-import com.example.aula3.models.Curso;
 import com.example.aula3.models.Produto;
-import com.example.aula3.repository.CategoriaCursoRepository;
 import com.example.aula3.repository.CategoriaProdutoRepository;
-import com.example.aula3.repository.CursoRepository;
 import com.example.aula3.repository.ProdutoRepository;
 
 @SpringBootApplication
 public class Aula3Application {
 
 	@Bean
-	public CommandLineRunner init(@Autowired ProdutoRepository produtoRepository, 
+	public CommandLineRunner init(
+	@Autowired ProdutoRepository produtoRepository, 
 	@Autowired CategoriaProdutoRepository categoriaProdutoRepository) {
 		return args -> {
 			produtoRepository.inserir(

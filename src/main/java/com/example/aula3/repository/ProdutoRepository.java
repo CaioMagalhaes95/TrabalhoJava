@@ -30,9 +30,9 @@ public class ProdutoRepository {
     }
 
     public List<Produto> obterPorNome(String prod_nome){
-        String jpql = "select c from Produto c where c.cat_nome like :cat_nome";
+        String jpql = "select c from Produto c where c.prod_nome like :prod_nome";
         TypedQuery<Produto> query = entityManager.createQuery(jpql, Produto.class);
-        query.setParameter("cat_nome", "%" + prod_nome + "%");
+        query.setParameter("prod_nome", "%" + prod_nome + "%");
         return query.getResultList();
     }
 

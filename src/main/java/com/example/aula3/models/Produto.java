@@ -62,7 +62,7 @@ public class Produto {
         return "Produto [Id=" + Id + ", prod_nome=" + prod_nome + ", prod_qtd=" + prod_qtd + "]";
     }
 
-      @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "categoriaProduto_id")
     private CategoriaProduto categoriaProduto;
 
